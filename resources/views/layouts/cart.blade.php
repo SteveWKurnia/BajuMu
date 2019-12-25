@@ -13,7 +13,7 @@
             @foreach($items as $item)
                 <tr>
                     <td><img src="{{'/storage/images/'.$item->image}}" width="300" height="450"></td>
-                    <td>{{$item->id}}</td>
+                    <td>{{$item->name}}</td>
                     <td>
                         <form action="/cart/{{$item->id}}" method="post">
                             {{csrf_field()}}

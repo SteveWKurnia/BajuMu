@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Item;
 use Carbon\Carbon;
+use Faker\Provider\Uuid;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.new_item');
     }
 
     /**
@@ -64,7 +65,26 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item();
+        $item->name = $request->item_name;
+        $item->description = $request->item_desc;
+        $item->price = $request->item_price;
+        $item->borrowed = false;
+        $item->provider_id = Auth::user()->id;
+
+        $item_image = $request->file('item_image');
+
+        $image_name = Uuid::uuid();
+        $ext = $item_image->getClientOriginalExtension();
+        $image_file_name = $image_name.'.'.$ext;
+
+        $dest =storage_path('app/public/images');
+        $item_image->move($dest,$image_file_name);
+
+        $item->image = $image_file_name;
+        $item->save();
+
+        return redirect()->back();
     }
 
     /**

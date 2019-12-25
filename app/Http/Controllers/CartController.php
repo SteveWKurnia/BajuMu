@@ -34,11 +34,12 @@ class CartController extends Controller
 
     public function checkout($id){
         $transaction = new Transaction();
+        $item = Item::findOrFail($id);
 
         $transaction->user_id = Auth::user()->id;
+        $transaction->provider_id = $item->provider_id;
         $transaction->item_id = $id;
         $transaction->is_completed = 0;
-        $transaction->is_providing = 0;
         $transaction->save();
 
         $carts = Cart::all();

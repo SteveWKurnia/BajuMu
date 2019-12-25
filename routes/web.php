@@ -17,7 +17,12 @@ Route::get('/login', 'AuthController@login');
 Route::post('/login', 'AuthController@doLogin');
 Route::get('/logout','AuthController@doLogout');
 
+Route::get('/register','AuthController@register');
+Route::post('/register/create','AuthController@doRegister');
+
 Route::get('/', 'ItemController@index');
+Route::post('/item/store','ItemController@store');
+Route::get('/item/create','ItemController@create');
 Route::get('/item/{item_id}','ItemController@show');
 Route::post('/item/{item_id}','ItemController@addToCart');
 
@@ -26,3 +31,4 @@ Route::post('/cart/{item_id}', 'CartController@checkout');
 
 Route::get('/profile/{user_id}','UserController@show');
 Route::get('/profile','AuthController@login');
+

@@ -28,8 +28,14 @@
                             <td>{{$item->name}}</td>
                             @foreach($transactions as $tr)
                                 @if($tr->item_id === $item->id)
-                                    @if($tr->user_id === \Illuminate\Support\Facades\Auth::user()->id)
+                                    @if($tr->provider_id === \Illuminate\Support\Facades\Auth::user()->id)
                                         <td>You</td>
+                                    @else
+                                        @foreach($providers as $provider)
+                                            @if($provider->provider_id === $tr->provider_id)
+                                                <td>{{$provider->name}}</td>
+                                            @endif
+                                        @endforeach
                                     @endif
                                     @if($tr->is_completed === 0)
                                         <td>Process</td>
@@ -41,6 +47,13 @@
                         </tr>
                     @endforeach
                 </table>
+            </div>
+            {{--Add new item--}}
+            <div>
+                <form action="/item/create" method="GET">
+                    {{csrf_field()}}
+                    <button type="submit">Add new item</button>
+                </form>
             </div>
         </div>
     </div>

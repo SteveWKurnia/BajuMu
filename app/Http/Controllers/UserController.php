@@ -56,11 +56,16 @@ class UserController extends Controller
             ->select('transactions.*')
             ->where('transactions.user_id','=',$id)
             ->get();
-//        dd($transactions);
         $items = DB::table('items')
             ->whereIn('items.id',$item_ids)
             ->get();
-        return view('layouts.profile',compact('user', 'items','transactions'));
+        $providers = DB::table('users')
+            ->join('transactions','users.id','=','transactions.provider_id')
+            ->where('transactions.user_id','=',$id)
+            ->select('*')
+            ->get();
+//        dd($providers);
+        return view('layouts.profile',compact('user', 'items','transactions','providers'));
     }
 
     /**

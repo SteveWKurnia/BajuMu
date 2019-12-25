@@ -14,9 +14,9 @@ class TransactionsTableSeeder extends Seeder
     {
         DB::table('transactions')->insert([
            'user_id'=>1,
+           'provider_id'=>1,
            'item_id'=>1,
-           'is_completed'=>false,
-            'is_providing'=>true
+           'is_completed'=>false
         ]);
     }
 }

@@ -16,9 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->integer('provider_id');
             $table->integer('item_id');
             $table->boolean('is_completed');
-            $table->boolean('is_providing');
             $table->timestamps();
         });
     }
